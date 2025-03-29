@@ -1,29 +1,16 @@
-name: Build JAR on Main Update
+stages:
+  - build
 
-on:
-  push:
-    branches:
-      - main  # Runs when the main branch is updated
-
-jobs:
-  build:
-    runs-on: ubuntu-latest  # Runs on Linux
-    
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3  # Fetches your repo code
-
-      - name: Set Up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'  # OpenJDK distribution
-          java-version: '17'  # Change if needed
-
-      - name: Build JAR with Maven
-        run: mvn clean package -DskipTests  # Builds JAR file
-
-      - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-app-jar
-          path: target/*.jar  # Path where JAR is generated
+build_jar:
+  stage: build
+  only:
+    - main
+  script:
+    - echo "Building JAR file..."
+    - mvn clean package
+    - mkdir -p build
+    - cp target/*.jar build/
+  artifacts:
+    paths:
+      - build/*.jar
+    expire_in: 1 day
