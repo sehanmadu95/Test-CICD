@@ -23,7 +23,7 @@ jobs:
         run: mvn clean package -DskipTests  # Builds JAR file
 
       - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v2  # Change to v2
+        uses: actions/upload-artifact@latest  # Use the latest stable release
         with:
           name: my-app-jar
           path: target/*.jar  # Path where JAR is generated
