@@ -18,6 +18,6 @@ public class Controller {
 
     @GetMapping("/")
     public String welcome() {
-        return "Testing CICD.....!!!!";
+        return "Testing CICD.....!!!!2222";
     }
 }
